@@ -12,8 +12,7 @@
 
     - name: create application user
       ansible.builtin.user:
-        name: expense-user
-        comment: expense-user application
+        name: expense
 
     - name: remove content
       ansible.builtin.file:
@@ -41,7 +40,7 @@
         src: backend.service
         dest: /etc/systemd/system/backend.service
 
-    - name: restart backend service
+    - name: start backend service
       ansible.builtin.systemd:
         name: backend
         state: restarted
