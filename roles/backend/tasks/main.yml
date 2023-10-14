@@ -5,7 +5,7 @@
 
     - name: install nodejs repo
       ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-      when: chek_status!=0 
+      when: chek_status.rc!=0 
 
     - name: print nodejs status
       ansible.builtin.debug:
