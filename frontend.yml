@@ -14,13 +14,13 @@
 
     - name: Create directory
       ansible.builtin.file:
-        path: /usr/share/nginx/html
+        path: /usr/share/nginx/html/
         state: directory
 
     - name: download code and place it and unarchive
       ansible.builtin.unarchive:
         src: https://expense-artifacts.s3.amazonaws.com/frontend.zip
-        dest: /usr/share/nginx/html
+        dest: /usr/share/nginx/html/
 
     - name: copy enxpense conf
       ansible.builtin.copy:
