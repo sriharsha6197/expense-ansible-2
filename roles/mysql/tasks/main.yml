@@ -18,4 +18,4 @@
         state: restarted
 
     - name: setup password
-      ansible.builtin.shell: mysql_secure_installation --set-root-pass Sriharsha@1
+      ansible.builtin.shell: mysql_secure_installation --set-root-pass {{ lookup('aws_ssm', 'expense.backend.mysql_password', region='us-east-1') }};
