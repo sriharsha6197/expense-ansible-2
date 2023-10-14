@@ -1,8 +1,4 @@
-- name: backend setup
-  hosts: all
-  become: yes
-  tasks:
-    - name: install nodejs repo
+- name: install nodejs repo
       ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
     - name: install nodejs
@@ -14,21 +10,10 @@
       ansible.builtin.user:
         name: expense
 
-    - name: remove content
-      ansible.builtin.file:
-        path: /app
-        state: absent
-
-    - name: create directory
-      ansible.builtin.file:
-        path: /app
-        state: directory
-
-    - name: download code and unarchive
-      ansible.builtin.unarchive:
-        src: https://expense-artifacts.s3.amazonaws.com/backend.zip
-        dest: /app
-        remote_src: yes
+    - name: import role
+      ansible.builtin.import_role:
+        name: common
+        tasks_from: app_prereq
 
     - name: install dependencies
       ansible.builtin.shell: npm install
