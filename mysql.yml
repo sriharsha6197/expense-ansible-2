@@ -1,0 +1,26 @@
+- name: mysql setup
+  hosts: all
+  become: yes
+  tasks:
+    - name: disable mysql which is already there
+      ansible.builtin.shell: dnf module disable mysql -y
+        name: mysql
+        state: absent
+
+    - name: copy mysql repo
+      ansible.builtin.copy:
+        src: mysql.repo
+        dest: /etc/yum.repos.d/mysql.repo
+
+    - name: install mysql community server
+      ansible.builtin.dnf:
+        name: mysql-community-server
+        state: installed
+
+    - name: restart mysql
+      ansible.builtin.systemd:
+        name: mysqld
+        state: restarted
+
+    - name: setup password
+      ansible.builtin.shell: mysql_secure_installation --set-root-pass Sriharsha@1
