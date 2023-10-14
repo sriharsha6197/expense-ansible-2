@@ -4,7 +4,7 @@
   tasks:
     - name: disable mysql which is already there
       ansible.builtin.shell: dnf module disable mysql -y
-        name: mysql
+        name: mysqld
         state: absent
 
     - name: copy mysql repo
