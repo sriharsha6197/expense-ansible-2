@@ -15,9 +15,10 @@
         name: mysql-community-server
         state: installed
 
-    - name: restart mysql
+    - name: enable mysql
       ansible.builtin.systemd:
         name: mysqld
+        enabled: yes
         state: restarted
 
     - name: setup password
