@@ -21,6 +21,7 @@
       ansible.builtin.unarchive:
         src: https://expense-artifacts.s3.amazonaws.com/frontend.zip
         dest: /usr/share/nginx/html/
+        remote_src: yes
 
     - name: copy enxpense conf
       ansible.builtin.copy:
