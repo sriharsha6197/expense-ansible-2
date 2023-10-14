@@ -6,7 +6,7 @@
       register: chek_status
 
     - name: print nodejs status
-      ansible.builtin.dnf:
+      ansible.builtin.debug:
         msg: "{{chek_status}}"
       ignore_errors: yes
 
