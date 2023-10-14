@@ -1,10 +1,19 @@
     - name: install nodejs repo
       ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
+    - name: check nodejs installation
+      ansible.builtin.shell: type npm
+      register: chek_status
+
+    - name: print nodejs status
+      ansible.builtin.dnf:
+        msg: "{{chek_status}}"
+
     - name: install nodejs
       ansible.builtin.dnf:
         name: nodejs
         state: installed
+      when: chek_status.rc!=0
 
     - name: create application user
       ansible.builtin.user:
