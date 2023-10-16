@@ -5,7 +5,7 @@
 
     - name: install nodejs repo
       ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-      when: chek_status.rc!=0 
+      when: chek_status.rc != 0 
 
     - name: print nodejs status
       ansible.builtin.debug:
@@ -14,7 +14,6 @@
     - name: install nodejs
       ansible.builtin.dnf:
         name: nodejs
-        state: installed
       when: chek_status.rc!=0
 
     - name: create application user
@@ -43,10 +42,9 @@
         enabled: yes
         daemon-reload: yes
     
-    - name: install mysql
+    - name: install mysql client
       ansible.builtin.dnf:
         name: mysql
-        state: installed
 
     - name: load schema
-      ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'expense.backend.mysql', region='us-east-1') }}; -uroot -p{{ lookup('aws_ssm', 'expense.backend.mysql_password', region='us-east-1') }}; < /app/schema/backend.sql
+      ansible.builtin.shell: mysql -h {{ lookup('aws_ssm', 'expense.backend.mysql', region='us-east-1') }}; -uroot -p{{ lookup('aws_ssm', 'expense.backend.mysql_password', region='us-east-1') }} < /app/schema/backend.sql
